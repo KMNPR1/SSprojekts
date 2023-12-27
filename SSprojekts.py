@@ -10,92 +10,134 @@ service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
 
-marka = input(str("Choose your desired car brand: "))
+marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
+marka = marka.upper()
 
 def autoIzvele(marka):
-    if marka == "Alfa Romeo":
+    if marka == "ALFA ROMEO" or marka == "1":
         find = driver.find_element(By.ID, "ahc_99")
-    elif marka == "Audi":
+        find.click()
+    elif marka == "AUDI" or marka == "2":
         find = driver.find_element(By.ID, "ahc_103")
-    elif marka == "BMW":
+        find.click()
+    elif marka == "BMW" or marka == "3":
         find = driver.find_element(By.ID, "ahc_106")
-    elif marka == "Chevrolet":
+        find.click()
+    elif marka == "CHEVROLET" or marka == "4":
         find = driver.find_element(By.ID, "ahc_110")
-    elif marka == "Chrysler":
+        find.click()
+    elif marka == "CHRYSLER" or marka == "5":
         find = driver.find_element(By.ID, "ahc_111")
-    elif marka == "Citroen":
+        find.click()
+    elif marka == "CITROEN" or marka == "CITROËN" or marka == "6":
         find = driver.find_element(By.ID, "ahc_112")
-    elif marka == "Dacia":
+        find.click()
+    elif marka == "DACIA" or marka == "7":
         find = driver.find_element(By.ID, "ahc_75068")
-    elif marka == "Dodge":
+        find.click()
+    elif marka == "DODGE" or marka == "8":
         find = driver.find_element(By.ID, "ahc_116")
-    elif marka == "Fiat":
+        find.click()
+    elif marka == "FIAT" or marka == "9":
         find = driver.find_element(By.ID, "ahc_119")
-    elif marka == "Ford":
+        find.click()
+    elif marka == "FORD" or marka == "10":
         find = driver.find_element(By.ID, "ahc_120")
-    elif marka == "Honda":
+        find.click()
+    elif marka == "HONDA" or marka == "11":
         find = driver.find_element(By.ID, "ahc_123")
-    elif marka == "Hyundai":
+        find.click()
+    elif marka == "HYUNDAI" or marka == "12":
         find = driver.find_element(By.ID, "ahc_124")
-    elif marka == "Jaguar":
+        find.click()
+    elif marka == "JAGUAR" or marka == "13":
         find = driver.find_element(By.ID, "ahc_127")
-    elif marka == "Jeep":
+        find.click()
+    elif marka == "JEEP" or marka == "14":
         find = driver.find_element(By.ID, "ahc_128")
-    elif marka == "Kia":
+        find.click()
+    elif marka == "KIA" or marka == "15":
         find = driver.find_element(By.ID, "ahc_129")
-    elif marka == "Lancia":
+        find.click()
+    elif marka == "LANCIA" or marka == "16":
         find = driver.find_element(By.ID, "ahc_131")
-    elif marka == "Land Rover":
+        find.click()
+    elif marka == "LAND ROVER" or marka == "17":
         find = driver.find_element(By.ID, "ahc_132")
-    elif marka == "Lexus":
+        find.click()
+    elif marka == "LEXUS" or marka == "18":
         find = driver.find_element(By.ID, "ahc_133")
-    elif marka == "Mazda":
+        find.click()
+    elif marka == "MAZDA" or marka == "19":
         find = driver.find_element(By.ID, "ahc_139")
-    elif marka == "Mercedes" or marka == "Mercedes-Benz" or marka == "Mercedes Benz":
+        find.click()
+    elif marka == "MERCEDES" or marka == "MERCEDES-BENZ" or marka == "MERCEDES BENZ" or marka == "20":
         find = driver.find_element(By.ID, "ahc_140")
-    elif marka == "Mini":
+        find.click()
+    elif marka == "MINI" or marka == "21":
         find = driver.find_element(By.ID, "ahc_143")
-    elif marka == "Mitsubishi":
+        find.click()
+    elif marka == "MITSUBISHI" or marka == "22":
         find = driver.find_element(By.ID, "ahc_144")
-    elif marka == "Nissan":
+        find.click()
+    elif marka == "NISSAN" or marka == "23":
         find = driver.find_element(By.ID, "ahc_146")
-    elif marka == "Opel":
+        find.click()
+    elif marka == "OPEL" or marka == "24":
         find = driver.find_element(By.ID, "ahc_147")
-    elif marka == "Peugeot":
+        find.click()
+    elif marka == "PEUGEOT" or marka == "25":
         find = driver.find_element(By.ID, "ahc_148")
-    elif marka == "Porsche":
+        find.click()
+    elif marka == "PORSCHE" or marka == "26":
         find = driver.find_element(By.ID, "ahc_151")
-    elif marka == "Renault":
+        find.click()
+    elif marka == "RENAULT" or marka == "27":
         find = driver.find_element(By.ID, "ahc_153")
-    elif marka == "Saab":
+        find.click()
+    elif marka == "SAAB" or marka == "28":
         find = driver.find_element(By.ID, "ahc_156")
-    elif marka == "Seat":
+        find.click()
+    elif marka == "SEAT" or marka == "29":
         find = driver.find_element(By.ID, "ahc_157")
-    elif marka == "Skoda" or marka == "Škoda":
+        find.click()
+    elif marka == "SKODA" or marka == "ŠKODA" or marka == "30":
         find = driver.find_element(By.ID, "ahc_158")
-    elif marka == "Smart":
+        find.click()
+    elif marka == "SMART" or marka == "31":
         find = driver.find_element(By.ID, "ahc_26891")
-    elif marka == "Subaru":
+        find.click()
+    elif marka == "SUBARU" or marka == "32":
         find = driver.find_element(By.ID, "ahc_159")
-    elif marka == "Suzuki":
+        find.click()
+    elif marka == "SUZUKI" or marka == "33":
         find = driver.find_element(By.ID, "ahc_160")
-    elif marka == "Toyota":
+        find.click()
+    elif marka == "TOYOTA" or marka == "34":
         find = driver.find_element(By.ID, "ahc_164")
-    elif marka == "Volkswagen" or marka == "VW":
+        find.click()
+    elif marka == "VOLKSWAGEN" or marka == "VW" or marka == "35":
         find = driver.find_element(By.ID, "ahc_166")
-    elif marka == "Volvo":
+        find.click()
+    elif marka == "VOLVO" or marka == "36":
         find = driver.find_element(By.ID, "ahc_167")
-    elif marka == "Gaz":
+        find.click()
+    elif marka == "GAZ" or marka == "37":
         find = driver.find_element(By.ID, "ahc_169")
-    elif marka == "Uaz":
+        find.click()
+    elif marka == "UAZ" or marka == "38":
         find = driver.find_element(By.ID, "ahc_176")
-    elif marka == "Vaz":
+        find.click()
+    elif marka == "VAZ" or marka == "39":
         find = driver.find_element(By.ID, "ahc_168")
+        find.click()
     else:
         print("Please choose a brand from the following list:")
-        print("Alfa Romeo, Audi, BMW, Chevrolet, Chrysler, Citroen, Dacia, Dodge, Fiat, Ford, Honda, Hyundai, Jaguar, Jeep, Kia, Lancia, Land Rover, Lexus, Mazda, Mercedes, Mini, Mitsubishi, Nissan, Opel, Peugeot, Porsche, Renault, Saab, Seat, Skoda, Smart, Subaru, Suzuki, Toyota, Volkswagen, Volvo, Gaz, Uaz, Vaz")
+        print("1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz")
         marka = input(str("Choose your desired car brand: "))
-    find.click()
+        marka = marka.upper()
+        autoIzvele(marka)
+    
 
 url = "https://www.ss.lv/lv/transport/cars/"
 driver.get(url)
