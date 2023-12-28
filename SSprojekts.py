@@ -158,7 +158,7 @@ autoIzvele(marka)
 
 time.sleep(2)
 
-find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
+find = driver.find_element(By.LINK_TEXT, "msga2-o")
 print(find)
 
 input()
