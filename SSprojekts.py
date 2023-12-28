@@ -5,13 +5,15 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
 
+marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
+marka = marka.upper()
+
+print("this is a cry for help \npls work i beg you otherwise i'll go mental")
 
 service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
 
-marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
-marka = marka.upper()
 
 def autoIzvele(marka):
     if marka == "ALFA ROMEO" or marka == "1":
@@ -143,20 +145,28 @@ url = "https://www.ss.lv/lv/transport/cars/"
 driver.get(url)
 time.sleep(2)
 
+#find = driver.find_element(By.LINK_TEXT, "Pieņemt")
+#print(find)
+#HELP THIS DOESNT WORK AAAAAAAAAAAAAAAAAAA
 
+
+time.sleep(1)
 autoIzvele(marka)
+
+#find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
+#print(find)
 
 time.sleep(2)
 
+find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
+print(find)
+
+input()
+
 '''
-find = driver.find_element(By.CLASS_NAME, "button")
-find.click()
-
-time.sleep(0.5)
-
 find = driver.find_element(By.CLASS_NAME, "b s12")
 find.click()
 
 time.sleep(1)
-'''
 
+'''
