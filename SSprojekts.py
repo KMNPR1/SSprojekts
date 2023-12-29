@@ -3,16 +3,33 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
 marka = marka.upper()
+model = input(str("Which model do you want to get? "))
 
 print("this is a cry for help \npls work i beg you otherwise i'll go mental")
 
 service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
+
+def modelis(model):
+    find = driver.find_element(By.LINK_TEXT, "Meklēšana")
+    find.click()
+    #next two lines are an equivalent of time.sleep(1) except they are smarter so better use them if possible
+    delay = 1
+    WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.LINK_TEXT, "Meklēšana")))
+    find = driver.find_element(By.CLASS_NAME, "in1s")
+    find.send_keys(model)
+    #next find doesnt work properly, might as well remove the whole area of the code if it keeps doing that
+    #find = driver.find_element(By.ID, "sbtn")
+    #maybe try using atribute "value" in order to find the desired element
+    #find.click()
+
 
 
 def autoIzvele(marka):
@@ -140,6 +157,10 @@ def autoIzvele(marka):
         marka = marka.upper()
         autoIzvele(marka)
     
+    modelis(model)
+    #We might need this in the future so dont delete it yet (see explanation in def modelis)
+
+    
 
 url = "https://www.ss.lv/lv/transport/cars/"
 driver.get(url)
@@ -150,7 +171,6 @@ time.sleep(2)
 #HELP THIS DOESNT WORK AAAAAAAAAAAAAAAAAAA
 
 
-time.sleep(1)
 autoIzvele(marka)
 
 #find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
@@ -158,8 +178,11 @@ autoIzvele(marka)
 
 time.sleep(2)
 
+'''
 find = driver.find_element(By.LINK_TEXT, "msga2-o")
 print(find)
+'''
+#in searching for the price get_attribute might be a good thing, defintely consider using it 
 
 input()
 
@@ -170,3 +193,4 @@ find.click()
 time.sleep(1)
 
 '''
+
