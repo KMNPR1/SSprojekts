@@ -10,6 +10,10 @@ import time
 marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
 marka = marka.upper()
 model = input(str("Which model do you want to get? "))
+cena1 = input(str("What is the LOWEST price you'd pay for a car? "))
+cena2 = input(str("What is the HIGHEST price you'd pay for a car? "))
+mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
+mileage2 = input(str("What is the HIGHEST mileage you'd want to have in a car? "))
 
 print("this is a cry for help \npls work i beg you otherwise i'll go mental")
 
@@ -30,6 +34,22 @@ def modelis(model):
     #maybe try using atribute "value" in order to find the desired element
     #find.click()
 
+def cenasIzvele(cena1, cena2):
+    find = driver.find_element(By.ID, "f_o_8_min")
+    find.send_keys(cena1)
+    find = driver.find_element(By.ID, "f_o_8_max")
+    find.send_keys(cena2)
+    find = driver.find_element(By.CLASS_NAME, "b")
+    find.click()
+
+def nobraukumaIzvele(mileage1, mileage2):
+    print("Sorry, the mileage part is under construction right now")
+    '''
+    find = driver.find_element(By.CLASS_NAME, "in3")
+    find.send_keys(mileage1)
+    find = driver.find_element(By.CLASS_NAME, "in3")
+    find.send_keys(mileage2)
+    '''
 
 
 def autoIzvele(marka):
@@ -157,7 +177,9 @@ def autoIzvele(marka):
         marka = marka.upper()
         autoIzvele(marka)
     
+    cenasIzvele(cena1, cena2) # In final product move this part below function modelis
     modelis(model)
+    nobraukumaIzvele(mileage1, mileage2)
     #We might need this in the future so dont delete it yet (see explanation in def modelis)
 
     
@@ -175,22 +197,9 @@ autoIzvele(marka)
 
 #find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
 #print(find)
+#in searching for the price get_attribute("value") might be a good thing, defintely consider using it 
+
 
 time.sleep(2)
 
-'''
-find = driver.find_element(By.LINK_TEXT, "msga2-o")
-print(find)
-'''
-#in searching for the price get_attribute might be a good thing, defintely consider using it 
-
 input()
-
-'''
-find = driver.find_element(By.CLASS_NAME, "b s12")
-find.click()
-
-time.sleep(1)
-
-'''
-
