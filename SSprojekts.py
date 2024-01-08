@@ -7,19 +7,78 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz: \n"))
+marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz, 40 Does not matter: \n"))
 marka = marka.upper()
-model = input(str("Which model do you want to get? "))
-cena1 = input(str("What is the LOWEST price you'd pay for a car? "))
-cena2 = input(str("What is the HIGHEST price you'd pay for a car? "))
-mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
-mileage2 = input(str("What is the HIGHEST mileage you'd want to have in a car? "))
+if marka == "DOES NOT MATTER" or marka == "DOESN'T MATTER" or marka == "40":
+    cena1 = input(str("What is the LOWEST price you'd pay for a car? "))
+    cena2 = input(str("What is the HIGHEST price you'd pay for a car? "))
+    #mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
+    #mileage2 = input(str("What is the HIGHEST mileage you'd want to have in a car? "))
+    year1 = input(str("What is the EARLIEST YEAR car you'd want to have? "))
+    year2 = input(str("What is the LATEST YEAR car you'd want to have? "))
+    gearbox = input(str("Does your car have to be manual or automatic? \nManual:1 \nAutomatic:2 \nDoes not matter:3 \n"))
+    gearbox = gearbox.upper()
+    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3"))
+    fuelType = fuelType.upper()
+else:
+    model = input(str("Which model do you want to get? "))
+    cena1 = input(str("What is the LOWEST price you'd pay for a car? "))
+    cena2 = input(str("What is the HIGHEST price you'd pay for a car? "))
+    #mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
+    #mileage2 = input(str("What is the HIGHEST mileage you'd want to have in a car? "))
+    year1 = input(str("What is the EARLIEST YEAR car you'd want to have? "))
+    year2 = input(str("What is the LATEST YEAR car you'd want to have? "))
+    gearbox = input(str("Does your car have to be manual or automatic? \nManual:1 \nAutomatic:2 \nDoes not matter:3 \n"))
+    gearbox = gearbox.upper()
+    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3 \n"))
+    fuelType = fuelType.upper()
 
 print("this is a cry for help \npls work i beg you otherwise i'll go mental")
+
+#aprakstit problemu readme velak, ta ka nevareja izveleties pec og kriterijem, jamaina pec ta, kas ir
+#jaskatas pec ta, ko mes varam mainit 
 
 service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
+
+def degviela(fuelType):
+    if fuelType == "1" or fuelType == "DIESEL":
+        find = driver.find_element(By.ID, "f_o_34")
+        find.send_keys("D")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+    elif fuelType == "2" or fuelType == "PETROL":
+        find = driver.find_element(By.ID, "f_o_34")
+        find.send_keys("Benzīns")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+    elif fuelType == "3" or fuelType == "LPG":
+        find = driver.find_element(By.ID, "f_o_34")
+        find.send_keys("Benzīns/gāze")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+
+def karba(gearbox):
+    if gearbox == "1" or gearbox == "MANUAL":
+        find = driver.find_element(By.ID, "f_o_35")
+        find.send_keys("M")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+    elif gearbox == "2" or gearbox == "AUTOMATIC":
+        find = driver.find_element(By.ID, "f_o_35")
+        find.send_keys("A")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+    elif gearbox == "3" or gearbox == "DOES NOT MATTER" or gearbox == "DOESN'T MATTER":
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+
+def gads(year1, year2):
+    find = driver.find_element(By.ID, "f_o_18_min")
+    find.send_keys(year1)
+    find = driver.find_element(By.ID, "f_o_18_max")
+    find.send_keys(year2)
 
 def modelis(model):
     find = driver.find_element(By.LINK_TEXT, "Meklēšana")
@@ -41,15 +100,15 @@ def cenasIzvele(cena1, cena2):
     find.send_keys(cena2)
     find = driver.find_element(By.CLASS_NAME, "b")
     find.click()
-
+'''
 def nobraukumaIzvele(mileage1, mileage2):
     print("Sorry, the mileage part is under construction right now")
-    '''
     find = driver.find_element(By.CLASS_NAME, "in3")
     find.send_keys(mileage1)
     find = driver.find_element(By.CLASS_NAME, "in3")
     find.send_keys(mileage2)
-    '''
+
+'''
 
 
 def autoIzvele(marka):
@@ -170,6 +229,8 @@ def autoIzvele(marka):
     elif marka == "VAZ" or marka == "39":
         find = driver.find_element(By.ID, "ahc_168")
         find.click()
+    elif marka == "DOES NOT MATTER" or marka == "DOESN'T MATTER" or marka == "40":
+        find = driver.find_element(By.CLASS_NAME, "b")
     else:
         print("Please choose a brand from the following list:")
         print("1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz")
@@ -178,8 +239,11 @@ def autoIzvele(marka):
         autoIzvele(marka)
     
     cenasIzvele(cena1, cena2) # In final product move this part below function modelis
-    modelis(model)
-    nobraukumaIzvele(mileage1, mileage2)
+    gads(year1, year2)
+    karba(gearbox)
+    degviela(fuelType)
+    #modelis(model)
+    #nobraukumaIzvele(mileage1, mileage2)
     #We might need this in the future so dont delete it yet (see explanation in def modelis)
 
     
