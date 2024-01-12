@@ -1,11 +1,15 @@
 import selenium
-#import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import requests
+import bs4
+import re
+import pandas
 
 marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz, 40 Does not matter: \n"))
 marka = marka.upper()
@@ -41,6 +45,41 @@ print("this is a cry for help \npls work i beg you otherwise i'll go mental")
 service = Service()
 option = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=option)
+
+
+def cenasNolasisana():
+    final = []
+    page = driver.current_url
+    page_cont = requests.get(page)
+    page_html = bs4.BeautifulSoup(page_cont.content, 'html.parser')
+    
+    for row_text in page_html.find_all('tr', id=re.compile("tr_")):
+        result = str(row_text)
+        x = result.find("msga2-o pp6")
+        y = result.find(">", x + 1)
+        z = result.find("<", y + 1)
+        car_model = result[y + 1:z]
+        x = result.find("msga2-o pp6", x + 1)
+        y = result.find(">", x + 1)
+        z = result.find("<", y + 1)
+        car_year = result[y + 1:z]
+        x = result.find("msga2-o pp6", x + 1)
+        y = result.find(">", x + 1)
+        z = result.find("<", y + 1)
+        car_price = result[y + 1:z]
+        x = result.find("msga2-r pp6", x + 1)
+        y = result.find(">", x + 1)
+        z = result.find("<", y + 1)
+        car_mileage = result[y + 1:z]
+        car_price = car_price.replace(",", "")
+        car_price = car_price.replace("  €", "")
+        car_mileage = car_mileage.replace(" tūkst.", " 000")
+        if (car_model != ""):
+            final.append([car_model, car_year, car_price, car_mileage])
+    
+    print(final)
+    df = pandas.DataFrame(final, columns=["name", "year", "price", "mileage"])
+    df.to_csv('output.csv', index=False)
 
 def degviela(fuelType):
     if fuelType == "1" or fuelType == "DIESEL":
@@ -81,6 +120,7 @@ def gads(year1, year2):
     find.send_keys(year2)
 
 def modelis(model):
+    
     find = driver.find_element(By.LINK_TEXT, "Meklēšana")
     find.click()
     #next two lines are an equivalent of time.sleep(1) except they are smarter so better use them if possible
@@ -89,9 +129,12 @@ def modelis(model):
     find = driver.find_element(By.CLASS_NAME, "in1s")
     find.send_keys(model)
     #next find doesnt work properly, might as well remove the whole area of the code if it keeps doing that
-    #find = driver.find_element(By.ID, "sbtn")
+    find = driver.find_element(By.ID, "sbtn")
     #maybe try using atribute "value" in order to find the desired element
-    #find.click()
+    find.click()
+    
+    #find = driver.find_element(By.CLASS_NAME, "filter_sel")
+    #find.send_keys(model)
 
 def cenasIzvele(cena1, cena2):
     find = driver.find_element(By.ID, "f_o_8_min")
@@ -242,6 +285,7 @@ def autoIzvele(marka):
     gads(year1, year2)
     karba(gearbox)
     degviela(fuelType)
+    cenasNolasisana()
     #modelis(model)
     #nobraukumaIzvele(mileage1, mileage2)
     #We might need this in the future so dont delete it yet (see explanation in def modelis)
