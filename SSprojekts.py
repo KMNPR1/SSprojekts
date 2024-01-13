@@ -10,6 +10,7 @@ import requests
 import bs4
 import re
 import pandas
+import csv
 
 marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz, 40 Does not matter: \n"))
 marka = marka.upper()
@@ -63,23 +64,73 @@ def cenasNolasisana():
         y = result.find(">", x + 1)
         z = result.find("<", y + 1)
         car_year = result[y + 1:z]
+        x = result.find("msga2-r pp6")
+        y = result.find(">", x + 1)
+        z = result.find("<", y + 1)
+        car_mileage = result[y + 1:z]
         x = result.find("msga2-o pp6", x + 1)
         y = result.find(">", x + 1)
         z = result.find("<", y + 1)
         car_price = result[y + 1:z]
-        x = result.find("msga2-r pp6", x + 1)
-        y = result.find(">", x + 1)
-        z = result.find("<", y + 1)
-        car_mileage = result[y + 1:z]
         car_price = car_price.replace(",", "")
         car_price = car_price.replace("  €", "")
-        car_mileage = car_mileage.replace(" tūkst.", " 000")
+        car_mileage = car_mileage.replace(" tūkst.", "000")
         if (car_model != ""):
             final.append([car_model, car_year, car_price, car_mileage])
     
-    print(final)
+    #print(final)
     df = pandas.DataFrame(final, columns=["name", "year", "price", "mileage"])
     df.to_csv('output.csv', index=False)
+
+def csvAnalysis():
+    with open("output.csv", mode = "r") as file:
+        csvData = csv.reader(file)
+        for lines in csvData:
+            print(lines)
+
+
+def process_csv(file_path):
+    with open(file_path, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        
+        # Skip header row if present
+        next(reader, None)
+        
+        # Initialize variables for sum and count
+        sum_price = 0
+        sum_mileage = 0
+        count = 0
+
+        # Iterate through rows
+        for row in reader:
+            try:
+                # Extract values from 3rd and 4th columns
+                price = float(row[2])
+                mileage = float(row[3])
+
+                # Calculate and print the ratio of 4th column to 3rd column
+                ratio = mileage / price
+                print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+
+                # Update sum and count for calculating averages
+                sum_price += price
+                sum_mileage += mileage
+                count += 1
+            except ValueError as e:
+                print(f"Skipping row {count + 1} due to ValueError: {e}")
+
+        # Calculate and print the averages
+        if count > 0:
+            average_price = sum_price / count
+            average_mileage = sum_mileage / count
+            print(f"\nAverage price: {average_price}")
+            print(f"Average mileage: {average_mileage}")
+        else:
+            print("\nNo valid rows found in the CSV file.")
+
+file_path = "output.csv"
+process_csv(file_path)
+
 
 def degviela(fuelType):
     if fuelType == "1" or fuelType == "DIESEL":
@@ -286,6 +337,8 @@ def autoIzvele(marka):
     karba(gearbox)
     degviela(fuelType)
     cenasNolasisana()
+    csvAnalysis()
+    process_csv(file_path)
     #modelis(model)
     #nobraukumaIzvele(mileage1, mileage2)
     #We might need this in the future so dont delete it yet (see explanation in def modelis)
