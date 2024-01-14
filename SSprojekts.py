@@ -75,10 +75,9 @@ def cenasNolasisana():
         car_price = car_price.replace(",", "")
         car_price = car_price.replace("  €", "")
         car_mileage = car_mileage.replace(" tūkst.", "000")
-        if (car_model != ""):
+        if (car_model != "") and (car_price != ""):
             final.append([car_model, car_year, car_price, car_mileage])
     
-    #print(final)
     df = pandas.DataFrame(final, columns=["name", "year", "price", "mileage"])
     df.to_csv('output.csv', index=False)
 
@@ -91,42 +90,61 @@ def csvAnalysis():
 
 def process_csv(file_path):
     with open(file_path, 'r') as csvfile:
-        reader = csv.reader(csvfile)
-        
-        # Skip header row if present
+        reader = csv.reader(csvfile)      
         next(reader, None)
         
-        # Initialize variables for sum and count
         sum_price = 0
         sum_mileage = 0
-        count = 0
+        count = len(next(zip(reader)))
 
-        # Iterate through rows
-        for row in reader:
-            try:
-                # Extract values from 3rd and 4th columns
-                price = float(row[2])
-                mileage = float(row[3])
 
-                # Calculate and print the ratio of 4th column to 3rd column
-                ratio = mileage / price
-                print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+        # for row in reader:
+        #     try:
+        #         price = float(row[2])
+        #         mileage = float(row[3])
 
-                # Update sum and count for calculating averages
-                sum_price += price
-                sum_mileage += mileage
-                count += 1
-            except ValueError as e:
-                print(f"Skipping row {count + 1} due to ValueError: {e}")
+        #         ratio = mileage / price
+        #         print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
 
-        # Calculate and print the averages
+        #         sum_price += price
+        #         sum_mileage += mileage
+        #         count += 1
+                
+        #     except ValueError as e:
+        #         print(f"Skipping row {count + 1} due to ValueError: {e}")
+                
         if count > 0:
             average_price = sum_price / count
             average_mileage = sum_mileage / count
+            average_ratio = average_mileage / average_price
             print(f"\nAverage price: {average_price}")
             print(f"Average mileage: {average_mileage}")
+            print(f"Average ratio: {average_ratio}")
+
+            for row in reader:
+                try:
+                    price = float(row[2])
+                    mileage = float(row[3])
+
+                    ratio = mileage / price
+                    print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+
+                    sum_price += price
+                    sum_mileage += mileage
+                    count += 1
+                    
+                except ValueError as e:
+                    print(f"Skipping row {count + 1} due to ValueError: {e}")
+
+            if ratio > average_ratio:
+                print("This deal is relatively good")
+            else:
+                print("This deal is relatively bad")
+
         else:
-            print("\nNo valid rows found in the CSV file.")
+            print("\nNo cars found matching your requirements.")
+
+        
 
 file_path = "output.csv"
 process_csv(file_path)
