@@ -81,12 +81,14 @@ def cenasNolasisana():
     df = pandas.DataFrame(final, columns=["name", "year", "price", "mileage"])
     df.to_csv('output.csv', index=False)
 
+'''
 def csvAnalysis():
     with open("output.csv", mode = "r") as file:
         csvData = csv.reader(file)
         for lines in csvData:
             print(lines)
 
+'''
 
 def process_csv(file_path):
     with open(file_path, 'r') as csvfile:
@@ -95,51 +97,62 @@ def process_csv(file_path):
         
         sum_price = 0
         sum_mileage = 0
-        count = len(next(zip(reader)))
+        count = 0
+        i = 0
+        ratioList = []
+        priceList = []
+        mileageList = []
 
 
-        # for row in reader:
-        #     try:
-        #         price = float(row[2])
-        #         mileage = float(row[3])
 
-        #         ratio = mileage / price
-        #         print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+        for row in reader:
+            try:
+                price = float(row[2])
+                mileage = float(row[3])
 
-        #         sum_price += price
-        #         sum_mileage += mileage
-        #         count += 1
+                ratio = mileage / price
+                ratio = round(ratio, 2)
+                print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+
+                ratioList.append(ratio)
+                priceList.append(price)
+                mileageList.append(mileage)
+
+                sum_price += price
+                sum_mileage += mileage
+                count += 1
                 
-        #     except ValueError as e:
-        #         print(f"Skipping row {count + 1} due to ValueError: {e}")
+            except ValueError as e:
+                print(f"Skipping row {count + 1} due to ValueError: {e}")
                 
         if count > 0:
-            average_price = sum_price / count
-            average_mileage = sum_mileage / count
+            average_price = round(sum_price / count, 2)
+            average_mileage = round(sum_mileage / count, 2)
             average_ratio = average_mileage / average_price
+            average_ratio = round(average_ratio, 2)
             print(f"\nAverage price: {average_price}")
             print(f"Average mileage: {average_mileage}")
             print(f"Average ratio: {average_ratio}")
+            print(ratioList)
 
-            for row in reader:
-                try:
-                    price = float(row[2])
-                    mileage = float(row[3])
+            while i < len(ratioList):
+                if ratioList[i] > average_ratio:
+                    print("This deal is relatively good")
+                else:
+                    print("This deal is relatively bad")
+                i += 1
 
-                    ratio = mileage / price
-                    print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+            max_element = max(ratioList)
+            
+            for m in range (1,len(ratioList)): #iterate over array
+                if ratioList[m] > max_element: #to check max value
+                    max_element = ratioList[m]
+                    ind = m
 
-                    sum_price += price
-                    sum_mileage += mileage
-                    count += 1
-                    
-                except ValueError as e:
-                    print(f"Skipping row {count + 1} due to ValueError: {e}")
 
-            if ratio > average_ratio:
-                print("This deal is relatively good")
-            else:
-                print("This deal is relatively bad")
+            print(f"\nThe best deal is with the ratio of {max(ratioList)}, which costs {priceList[ind1]} and has driven {mileageList[ind1]}km")
+
+            
 
         else:
             print("\nNo cars found matching your requirements.")
@@ -355,7 +368,8 @@ def autoIzvele(marka):
     karba(gearbox)
     degviela(fuelType)
     cenasNolasisana()
-    csvAnalysis()
+    #csvAnalysis()
+    time.sleep(1)
     process_csv(file_path)
     #modelis(model)
     #nobraukumaIzvele(mileage1, mileage2)
