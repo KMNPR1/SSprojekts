@@ -2,7 +2,6 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -11,6 +10,7 @@ import bs4
 import re
 import pandas
 import csv
+
 
 marka = input(str("Choose your desired car brand out of the following list: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz, 40 Does not matter: \n"))
 marka = marka.upper()
@@ -23,7 +23,7 @@ if marka == "DOES NOT MATTER" or marka == "DOESN'T MATTER" or marka == "40":
     year2 = input(str("What is the LATEST YEAR car you'd want to have? "))
     gearbox = input(str("Does your car have to be manual or automatic? \nManual:1 \nAutomatic:2 \nDoes not matter:3 \n"))
     gearbox = gearbox.upper()
-    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3"))
+    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3 \nDoes not matter: 4 \n"))
     fuelType = fuelType.upper()
 else:
     model = input(str("Which model do you want to get? "))
@@ -35,10 +35,8 @@ else:
     year2 = input(str("What is the LATEST YEAR car you'd want to have? "))
     gearbox = input(str("Does your car have to be manual or automatic? \nManual:1 \nAutomatic:2 \nDoes not matter:3 \n"))
     gearbox = gearbox.upper()
-    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3 \n"))
+    fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3 \nDoes not matter: 4 \n"))
     fuelType = fuelType.upper()
-
-print("this is a cry for help \npls work i beg you otherwise i'll go mental")
 
 #aprakstit problemu readme velak, ta ka nevareja izveleties pec og kriterijem, jamaina pec ta, kas ir
 #jaskatas pec ta, ko mes varam mainit 
@@ -81,14 +79,6 @@ def cenasNolasisana():
     df = pandas.DataFrame(final, columns=["name", "year", "price", "mileage"])
     df.to_csv('output.csv', index=False)
 
-'''
-def csvAnalysis():
-    with open("output.csv", mode = "r") as file:
-        csvData = csv.reader(file)
-        for lines in csvData:
-            print(lines)
-
-'''
 
 def process_csv(file_path):
     with open(file_path, 'r') as csvfile:
@@ -103,8 +93,6 @@ def process_csv(file_path):
         priceList = []
         mileageList = []
 
-
-
         for row in reader:
             try:
                 price = float(row[2])
@@ -112,7 +100,7 @@ def process_csv(file_path):
 
                 ratio = mileage / price
                 ratio = round(ratio, 2)
-                print(f"Row {count + 1}: {mileage} / {price} = {ratio}")
+                print(f"Number {count + 1}: {mileage} / {price} = {ratio}")
 
                 ratioList.append(ratio)
                 priceList.append(price)
@@ -123,7 +111,7 @@ def process_csv(file_path):
                 count += 1
                 
             except ValueError as e:
-                print(f"Skipping row {count + 1} due to ValueError: {e}")
+                print(f"Skipping number {count + 1} due to ValueError: {e}")
                 
         if count > 0:
             average_price = round(sum_price / count, 2)
@@ -132,27 +120,25 @@ def process_csv(file_path):
             average_ratio = round(average_ratio, 2)
             print(f"\nAverage price: {average_price}")
             print(f"Average mileage: {average_mileage}")
-            print(f"Average ratio: {average_ratio}")
-            print(ratioList)
+            print(f"Average ratio: {average_ratio}\n")
+            #print(ratioList)
 
             while i < len(ratioList):
                 if ratioList[i] > average_ratio:
-                    print("This deal is relatively good")
+                    print(f"The deal number {i+1} is relatively good, as it suggests a lower cost per unit of mileage. You are paying less for every km the car has been driven. ")
                 else:
-                    print("This deal is relatively bad")
+                    print(f"The deal number {i+1} is relatively bad, as it could imply a higher cost per unit of mileage. You are paying more for every km the car has been driven. ")
                 i += 1
 
-            max_element = max(ratioList)
-            
-            for m in range (1,len(ratioList)): #iterate over array
-                if ratioList[m] > max_element: #to check max value
-                    max_element = ratioList[m]
-                    ind = m
+            if ratioList:
+                max_index = ratioList.index(max(ratioList))
 
-
-            print(f"\nThe best deal is with the ratio of {max(ratioList)}, which costs {priceList[ind1]} and has driven {mileageList[ind1]}km")
-
-            
+                if max_index < len(priceList) and max_index < len(mileageList):
+                    print(f"\nThe best deal out of all the vehicles for sale is the number {max_index+1} with the ratio of {max(ratioList)}, which costs {priceList[max_index]} EUR and has driven {mileageList[max_index]}km")
+                else:
+                    print("\nError: Invalid index.")
+            else:
+                print("\nNo cars found matching your requirements.")            
 
         else:
             print("\nNo cars found matching your requirements.")
@@ -160,7 +146,6 @@ def process_csv(file_path):
         
 
 file_path = "output.csv"
-process_csv(file_path)
 
 
 def degviela(fuelType):
@@ -177,6 +162,9 @@ def degviela(fuelType):
     elif fuelType == "3" or fuelType == "LPG":
         find = driver.find_element(By.ID, "f_o_34")
         find.send_keys("Benzīns/gāze")
+        find = driver.find_element(By.CLASS_NAME, "b")
+        find.click()
+    elif fuelType == "4" or fuelType == "DOES NOT MATTER" or fuelType == "DOESN'T MATTER":
         find = driver.find_element(By.CLASS_NAME, "b")
         find.click()
 
@@ -202,7 +190,8 @@ def gads(year1, year2):
     find.send_keys(year2)
 
 def modelis(model):
-    
+
+    #This unfortunately doesnt work, thats why the part is here but the element that calls for it is commented out.
     find = driver.find_element(By.LINK_TEXT, "Meklēšana")
     find.click()
     #next two lines are an equivalent of time.sleep(1) except they are smarter so better use them if possible
@@ -225,6 +214,7 @@ def cenasIzvele(cena1, cena2):
     find.send_keys(cena2)
     find = driver.find_element(By.CLASS_NAME, "b")
     find.click()
+
 '''
 def nobraukumaIzvele(mileage1, mileage2):
     print("Sorry, the mileage part is under construction right now")
@@ -363,13 +353,12 @@ def autoIzvele(marka):
         marka = marka.upper()
         autoIzvele(marka)
     
-    cenasIzvele(cena1, cena2) # In final product move this part below function modelis
+    cenasIzvele(cena1, cena2)
     gads(year1, year2)
-    karba(gearbox)
     degviela(fuelType)
-    cenasNolasisana()
-    #csvAnalysis()
+    karba(gearbox)
     time.sleep(1)
+    cenasNolasisana()
     process_csv(file_path)
     #modelis(model)
     #nobraukumaIzvele(mileage1, mileage2)
@@ -381,18 +370,8 @@ url = "https://www.ss.lv/lv/transport/cars/"
 driver.get(url)
 time.sleep(2)
 
-#find = driver.find_element(By.LINK_TEXT, "Pieņemt")
-#print(find)
-#HELP THIS DOESNT WORK AAAAAAAAAAAAAAAAAAA
-
 
 autoIzvele(marka)
-
-#find = driver.find_element(By.CLASS_NAME, "msga2-o pp6")
-#print(find)
-#in searching for the price get_attribute("value") might be a good thing, defintely consider using it 
-
-
 time.sleep(2)
 
 input()
