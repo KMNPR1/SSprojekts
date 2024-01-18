@@ -504,12 +504,12 @@ elif lang == "2" or lang == "LV":
 
 
     def degviela(fuelType):
-        if fuelType == "1" or fuelType == "DIESEL":
+        if fuelType == "1" or fuelType == "DĪZELIS":
             find = driver.find_element(By.ID, "f_o_34")
             find.send_keys("D")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif fuelType == "2" or fuelType == "PETROL":
+        elif fuelType == "2" or fuelType == "BENZĪNS":
             find = driver.find_element(By.ID, "f_o_34")
             find.send_keys("Benzīns")
             find = driver.find_element(By.CLASS_NAME, "b")
@@ -519,22 +519,22 @@ elif lang == "2" or lang == "LV":
             find.send_keys("Benzīns/gāze")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif fuelType == "4" or fuelType == "DOES NOT MATTER" or fuelType == "DOESN'T MATTER":
+        elif fuelType == "4" or fuelType == "NAV NOZĪMES"
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
 
     def karba(gearbox):
-        if gearbox == "1" or gearbox == "MANUAL":
+        if gearbox == "1" or gearbox == "MANUĀLĀ":
             find = driver.find_element(By.ID, "f_o_35")
             find.send_keys("M")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif gearbox == "2" or gearbox == "AUTOMATIC":
+        elif gearbox == "2" or gearbox == "AUTOMĀTS":
             find = driver.find_element(By.ID, "f_o_35")
             find.send_keys("A")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif gearbox == "3" or gearbox == "DOES NOT MATTER" or gearbox == "DOESN'T MATTER":
+        elif gearbox == "3" or gearbox == "NAV NOZĪMES":
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
 
@@ -699,7 +699,7 @@ elif lang == "2" or lang == "LV":
         elif marka == "VAZ" or marka == "39":
             find = driver.find_element(By.ID, "ahc_168")
             find.click()
-        elif marka == "DOES NOT MATTER" or marka == "DOESN'T MATTER" or marka == "40":
+        elif marka == "NAV NOZĪMES" or marka == "40":
             find = driver.find_element(By.CLASS_NAME, "b")
         else:
             print("Lūdzu, izvēlieties marku no dotā saraksta:")
