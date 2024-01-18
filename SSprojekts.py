@@ -214,8 +214,8 @@ if lang == "1" or lang == "ENG":
         find.send_keys(cena1)
         find = driver.find_element(By.ID, "f_o_8_max")
         find.send_keys(cena2)
-        find = driver.find_element(By.CLASS_NAME, "b")
-        find.click()
+        # find = driver.find_element(By.CLASS_NAME, "b")
+        # find.click()
 
     '''
     def nobraukumaIzvele(mileage1, mileage2):
@@ -365,6 +365,18 @@ if lang == "1" or lang == "ENG":
         #modelis(model)
         #nobraukumaIzvele(mileage1, mileage2)
         #We might need this in the future so dont delete it yet (see explanation in def modelis)
+
+    url = "https://www.ss.lv/lv/transport/cars/"
+    driver.get(url)
+    time.sleep(2)
+
+
+    autoIzvele(marka)
+    time.sleep(2)
+
+    input()
+
+
 elif lang == "2" or lang == "LV":
     marka = input(str("Izvēlieties vēlamo automašīnu marku no šī saraksta: \n\n1 Alfa Romeo, 2 Audi, 3 BMW, 4 Chevrolet, 5 Chrysler, \n6 Citroen, 7 Dacia, 8 Dodge, 9 Fiat, 10 Ford, \n11 Honda, 12 Hyundai, 13 Jaguar, 14 Jeep, 15 Kia, \n16 Lancia, 17 Land Rover, 18 Lexus, 19 Mazda, 20 Mercedes, \n21 Mini, 22 Mitsubishi, 23 Nissan, 24 Opel, 25 Peugeot, \n26 Porsche, 27 Renault, 28 Saab, 29 Seat, 30 Skoda, \n31 Smart, 32 Subaru, 33 Suzuki, 34 Toyota, 35 Volkswagen, \n36 Volvo, 37 Gaz, 38 Uaz, 39 Vaz, 40 Nav nozīmes: \n"))
     marka = marka.upper()
@@ -502,12 +514,12 @@ elif lang == "2" or lang == "LV":
 
 
     def degviela(fuelType):
-        if fuelType == "1" or fuelType == "DĪZELIS":
+        if fuelType == "1" or fuelType == "DIESEL":
             find = driver.find_element(By.ID, "f_o_34")
             find.send_keys("D")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif fuelType == "2" or fuelType == "BENZĪNS":
+        elif fuelType == "2" or fuelType == "PETROL":
             find = driver.find_element(By.ID, "f_o_34")
             find.send_keys("Benzīns")
             find = driver.find_element(By.CLASS_NAME, "b")
@@ -517,22 +529,22 @@ elif lang == "2" or lang == "LV":
             find.send_keys("Benzīns/gāze")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif fuelType == "4" or fuelType == "NAV NOZĪMES":
+        elif fuelType == "4" or fuelType == "DOES NOT MATTER" or fuelType == "DOESN'T MATTER":
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
 
     def karba(gearbox):
-        if gearbox == "1" or gearbox == "MANUĀLĀ":
+        if gearbox == "1" or gearbox == "MANUAL":
             find = driver.find_element(By.ID, "f_o_35")
             find.send_keys("M")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif gearbox == "2" or gearbox == "AUTOMĀTS":
+        elif gearbox == "2" or gearbox == "AUTOMATIC":
             find = driver.find_element(By.ID, "f_o_35")
             find.send_keys("A")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif gearbox == "3" or gearbox == "NAV NOZĪMES":
+        elif gearbox == "3" or gearbox == "DOES NOT MATTER" or gearbox == "DOESN'T MATTER":
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
 
@@ -565,8 +577,8 @@ elif lang == "2" or lang == "LV":
         find.send_keys(cena1)
         find = driver.find_element(By.ID, "f_o_8_max")
         find.send_keys(cena2)
-        find = driver.find_element(By.CLASS_NAME, "b")
-        find.click()
+        #find = driver.find_element(By.CLASS_NAME, "b")
+        #find.click()
 
     '''
     def nobraukumaIzvele(mileage1, mileage2):
@@ -697,7 +709,7 @@ elif lang == "2" or lang == "LV":
         elif marka == "VAZ" or marka == "39":
             find = driver.find_element(By.ID, "ahc_168")
             find.click()
-        elif marka == "NAV NOZĪMES" or marka == "40":
+        elif marka == "DOES NOT MATTER" or marka == "DOESN'T MATTER" or marka == "40":
             find = driver.find_element(By.CLASS_NAME, "b")
         else:
             print("Lūdzu, izvēlieties marku no dotā saraksta:")
