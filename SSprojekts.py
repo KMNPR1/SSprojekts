@@ -519,7 +519,7 @@ elif lang == "2" or lang == "LV":
             find.send_keys("Benzīns/gāze")
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
-        elif fuelType == "4" or fuelType == "NAV NOZĪMES"
+        elif fuelType == "4" or fuelType == "NAV NOZĪMES":
             find = driver.find_element(By.CLASS_NAME, "b")
             find.click()
 
