@@ -29,7 +29,6 @@ if lang == "1" or lang == "ENG":
         fuelType = input(str("What is your desired fuel type? \nDiesel: 1 \nPetrol: 2 \nLPG: 3 \nDoes not matter: 4 \n"))
         fuelType = fuelType.upper()
     else:
-        model = input(str("Which model do you want to get? "))
         cena1 = input(str("What is the LOWEST price you'd pay for a car? "))
         cena2 = input(str("What is the HIGHEST price you'd pay for a car? "))
         #mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
@@ -381,7 +380,6 @@ elif lang == "2" or lang == "LV":
         fuelType = input(str("Kāds ir jūsu vēlamais degvielas tips? \nDīzelis: 1 \nBenzīns: 2 \nLPG: 3 \nNav starpības: 4 \n"))
         fuelType = fuelType.upper()
     else:
-        model = input(str("Which model do you want to get? "))
         cena1 = input(str("Kāda ir viszemākā cena, kādu jūs maksātu par automašīnu? "))
         cena2 = input(str("Kāda ir visaugstākā cena, kādu jūs maksātu par automašīnu? "))
         #mileage1 = input(str("What is the LOWEST mileage you'd want to have in a car? "))
